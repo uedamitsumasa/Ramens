@@ -1,0 +1,14 @@
+<h1>Edit Review</h1>
+
+<%= form_with(model: [:publics,  @review]) do |form| %>
+  <div>
+    <%= form.label :content %>
+    <%= form.text_area :content %>
+  </div>
+
+  <%= form.hidden_field :shop_id, value: @review.shop_id %>
+
+  <div>
+    <%= form.submit 'Update Review' %>
+  </div>
+<% end %>

@@ -1,0 +1,32 @@
+<h1>店舗詳細</h1>
+
+<%= link_to '編集リンク', edit_admins_shop_path(@shop) %>
+
+<div>
+  <% if @shop.shop_image.attached? %>
+    <%= image_tag @shop.shop_image.variant(resize: '500x500') %>
+  <% else %>
+    No Image
+  <% end %>
+</div>
+
+<div>
+  <% @shop.noodle_images.each do |image| %>
+    <%= image_tag image.variant(resize: '200x200') %>
+  <% end %>
+</div>
+
+<div>
+  <h2>Shop Information</h2>
+  <ul>
+    <li>Created At: <%= @shop.created_at %></li>
+    <li>Updated At: <%= @shop.updated_at %></li>
+    <li>店舗名: <%= @shop.name %></li>
+    <li>店舗説明: <%= @shop.explanation %></li>
+    <li>郵便番号: <%= @shop.post_code %></li>
+    <li>住所: <%= @shop.address %></li>
+    <li>電話番号: <%= @shop.phone_number %></li>
+    <li>開店時間: <%= @shop.open_time %></li>
+    <li>閉店時間: <%= @shop.close_time %></li>
+  </ul>
+</div>

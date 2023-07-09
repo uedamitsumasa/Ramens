@@ -1,0 +1,22 @@
+<h1>User List</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nickname</th>
+      <th>Address</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.nickname %></td>
+        <td><%= user.address %></td>
+        <td>
+          <%= link_to 'Show', admins_user_path(user) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

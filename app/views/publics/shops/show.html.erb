@@ -1,0 +1,39 @@
+<h1>店舗詳細</h1>
+
+<div>
+  <% if @shop.shop_image.attached? %>
+    <%= image_tag @shop.shop_image.variant(resize: '500x500') %>
+  <% else %>
+    No Image
+  <% end %>
+</div>
+
+<div>
+  <% @shop.noodle_images.each do |image| %>
+    <%= image_tag image.variant(resize: '200x200') %>
+  <% end %>
+</div>
+
+<div>
+  <h2>Shop Information</h2>
+  <ul>
+    <li>店舗名: <%= @shop.name %></li>
+    <li>店舗説明: <%= @shop.explanation %></li>
+    <li>郵便番号: <%= @shop.post_code %></li>
+    <li>住所: <%= @shop.address %></li>
+    <li>電話番号: <%= @shop.phone_number %></li>
+    <li>開店時間: <%= @shop.open_time %></li>
+    <li>閉店時間: <%= @shop.close_time %></li>
+  </ul>
+</div>
+
+<h2>Reviews</h2>
+
+<% @shop.reviews.each do |review| %>
+  <p><strong><%= review.user.nickname %>:</strong> <%= review.content %></p>
+  <% if review.user == current_user %>
+    <%= link_to 'Edit Review', edit_publics_review_path(review) %>
+  <% end %>
+<% end %>
+
+<%= link_to 'この店舗のレビューを書く', new_publics_review_path(shop_id: @shop.id) %>

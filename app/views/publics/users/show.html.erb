@@ -1,0 +1,25 @@
+<h1>ユーザー詳細</h1>
+
+<% if @user.profile_image.attached? %>
+  <h3>Profile Image</h3>
+  <%= image_tag @user.profile_image.variant(resize: '200x200') %>
+<% else %>
+  <p>No Image</p>
+<% end %>
+
+<p><strong>Last Name:</strong> <%= @user.last_name %></p>
+<p><strong>First Name:</strong> <%= @user.first_name %></p>
+<p><strong>Last Name (Katakana):</strong> <%= @user.last_name_katakana %></p>
+<p><strong>First Name (Katakana):</strong> <%= @user.first_name_katakana %></p>
+<p><strong>Nickname:</strong> <%= @user.nickname %></p>
+<p><strong>Post Code:</strong> <%= @user.post_code %></p>
+<p><strong>Address:</strong> <%= @user.address %></p>
+<p><strong>Phone Number:</strong> <%= @user.phone_number %></p>
+<p><strong>Profile:</strong> <%= @user.profile %></p>
+<p><strong>Email:</strong> <%= @user.email %></p>
+<p><strong>Created At:</strong> <%= @user.created_at %></p>
+<p><strong>Updated At:</strong> <%= @user.updated_at %></p>
+
+<% if @user == current_user %>
+<%= link_to 'Edit User', edit_publics_user_path(@user) %>
+<% end %>

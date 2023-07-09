@@ -1,0 +1,34 @@
+<h1>ユーザー一覧</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>プロフ画像</th>
+      <th>ニックネーム</th>
+      <th>一言コメント</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td>
+          <% if user.profile_image.attached? %>
+            <%= image_tag user.profile_image.variant(resize: '100x100') %>
+          <% else %>
+            No Image
+          <% end %>
+        </td>
+        <td><%= user.nickname %></td>
+        <td>
+          <% if user.profile? %>
+            <%= user.profile%>
+          <% else %>
+            No comment
+          <% end %>
+        </td>
+        <td><%= link_to 'View', publics_user_path(user) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

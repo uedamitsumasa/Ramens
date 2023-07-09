@@ -1,0 +1,63 @@
+<h1>Edit User</h1>
+
+<%= form_with(model: @user, url: publics_user_path(@user), method: :patch) do |form| %>
+  <div>
+    <%= form.label :last_name, "性" %>
+    <%= form.text_field :last_name %>
+  </div>
+  <div>
+    <%= form.label :first_name, "名" %>
+    <%= form.text_field :first_name %>
+  </div>
+  <div>
+    <%= form.label :last_name_katakana, "セイ" %>
+    <%= form.text_field :last_name_katakana %>
+  </div>
+  <div>
+    <%= form.label :first_name_katakana, "メイ" %>
+    <%= form.text_field :first_name_katakana %>
+  </div>
+  <div>
+    <%= form.label :nickname, "ニックネーム" %>
+    <%= form.text_field :nickname %>
+  </div>
+  <div>
+    <%= form.label :post_code, "郵便番号" %>
+    <%= form.text_field :post_code %>
+  </div>
+  <div>
+    <%= form.label :address, "住所" %>
+    <%= form.text_field :address %>
+  </div>
+  <div>
+    <%= form.label :phone_number, "電話番号" %>
+    <%= form.text_field :phone_number %>
+  </div>
+  <div>
+    <%= form.label :profile, "一言コメント" %>
+    <%= form.text_area :profile %>
+  </div>
+  <div>
+    <%= form.label :email, "メールアドレス" %>
+    <%= form.text_field :email %>
+  </div>
+
+  <div>
+    <%= form.label :profile_image, 'Profile Image' %>
+    <%= form.file_field :profile_image %>
+    <% if @user.profile_image.attached? %>
+      <p>Current Image:</p>
+      <%= image_tag @user.profile_image.variant(resize: '200x200') %>
+    <% else %>
+      <p>No Image</p>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.submit 'Update User' %>
+  </div>
+<% end %>
+
+<%= link_to 'Back', publics_user_path(@user) %>
+
+<%= button_to 'Delete User', publics_user_path(@user), method: :delete, data: { confirm: '退会しますか?（データは全て削除されます）' } %>

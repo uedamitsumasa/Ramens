@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_07_04_100517) do
+ActiveRecord::Schema.define(version: 2023_07_08_111520) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -50,6 +50,62 @@ ActiveRecord::Schema.define(version: 2023_07_04_100517) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_admins_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id", null: false
+    t.integer "review_id", null: false
+    t.text "react", null: false
+  end
+
+  create_table "favourites", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "shop_id", null: false
+    t.integer "user_id", null: false
+  end
+
+  create_table "follows", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "follow_id", null: false
+    t.integer "follower_id", null: false
+  end
+
+  create_table "genres", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "name", null: false
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "user_id", null: false
+    t.string "shop_id", null: false
+    t.integer "star", default: 0, null: false
+    t.text "content"
+  end
+
+  create_table "shop_genres", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "shop_id", null: false
+    t.integer "genre_id", null: false
+  end
+
+  create_table "shops", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.text "explanation", null: false
+    t.string "post_code", null: false
+    t.string "address", null: false
+    t.string "phone_number", null: false
+    t.time "open_time", null: false
+    t.time "close_time", null: false
+    t.string "name", null: false
   end
 
   create_table "users", force: :cascade do |t|

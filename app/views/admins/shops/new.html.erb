@@ -1,0 +1,52 @@
+<h1>ラーメンショップの追加</h1>
+
+<%= form_with(model: @shop, url: admins_shops_path, local: true, multipart: true) do |form| %>
+  <div>
+    <%= form.label :name, "店舗名" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :explanation, "店舗説明" %>
+    <%= form.text_area :explanation %>
+  </div>
+
+  <div>
+    <%= form.label :post_code, "郵便番号" %>
+    <%= form.text_field :post_code %>
+  </div>
+
+  <div>
+    <%= form.label :address, "住所" %>
+    <%= form.text_field :address %>
+  </div>
+
+  <div>
+    <%= form.label :phone_number, "電話番号" %>
+    <%= form.text_field :phone_number %>
+  </div>
+
+  <div>
+    <%= form.label :open_time, "開店時間" %>
+    <%= form.time_select :open_time %>
+  </div>
+
+  <div>
+    <%= form.label :close_time, "閉店時間" %>
+    <%= form.time_select :close_time %>
+  </div>
+
+  <div>
+    <%= form.label :shop_image, "店舗画像" %>
+    <%= form.file_field :shop_image %>
+  </div>
+
+  <div>
+    <%= form.label :noodle_images, "商品画像（shiftで複数選択可能）" %>
+    <%= form.file_field :noodle_images, multiple: true %>
+  </div>
+
+  <div>
+    <%= form.submit "Add Shop" %>
+  </div>
+<% end %>
