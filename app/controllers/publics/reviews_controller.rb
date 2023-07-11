@@ -19,10 +19,16 @@ class Publics::ReviewsController < ApplicationController
   def update
     @review = Review.find(params[:id])
     if @review.update(review_params)
-      redirect_to publics_shop_path(@review.shop), notice: '更新しました！'
+      redirect_to publics_shop_path(@review.shop), notice: '更新しました。'
     else
       render :edit
     end
+  end
+
+  def destroy
+    @review = Review.find(params[:id])
+    @review.destroy
+    redirect_to publics_shop_path(@review.shop_id), notice: '削除しました。'
   end
 
   private

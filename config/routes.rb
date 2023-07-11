@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     resources 'reviews'
     resources 'shops'
     resources 'users'
+    resources :replies, only: [:create]
   end
 
 

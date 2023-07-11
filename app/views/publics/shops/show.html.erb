@@ -32,8 +32,21 @@
 <% @shop.reviews.each do |review| %>
   <p><strong><%= review.user.nickname %>:</strong> <%= review.content %></p>
   <% if review.user == current_user %>
-    <%= link_to 'Edit Review', edit_publics_review_path(review) %>
+    <%= link_to '投稿の編集', edit_publics_review_path(review) %>
   <% end %>
+
+  <% review.replies.each do |reply| %>
+   <p><strong><%= reply.user.nickname %>:</strong> <%= reply.content %></p>
+  <% end %>
+
+  <% if review.user != current_user %>
+      <%= form_with(model: review.replies.new, url: publics_replies_path(review), method: :post) do |form| %>
+        <%= form.hidden_field :review_id, value: review.id %>
+        <%= form.text_field :content %>
+        <%= form.submit 'Reply' %>
+      <% end %>
+  <% end %>
+
 <% end %>
 
 <%= link_to 'この店舗のレビューを書く', new_publics_review_path(shop_id: @shop.id) %>

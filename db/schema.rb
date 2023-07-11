@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_07_08_111520) do
+ActiveRecord::Schema.define(version: 2023_07_11_071327) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -80,6 +80,16 @@ ActiveRecord::Schema.define(version: 2023_07_08_111520) do
     t.integer "name", null: false
   end
 
+  create_table "replies", force: :cascade do |t|
+    t.text "content"
+    t.integer "user_id", null: false
+    t.integer "review_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["review_id"], name: "index_replies_on_review_id"
+    t.index ["user_id"], name: "index_replies_on_user_id"
+  end
+
   create_table "reviews", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -131,4 +141,6 @@ ActiveRecord::Schema.define(version: 2023_07_08_111520) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "replies", "reviews"
+  add_foreign_key "replies", "users"
 end

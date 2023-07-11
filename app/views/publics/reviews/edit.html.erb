@@ -10,5 +10,6 @@
 
   <div>
     <%= form.submit 'Update Review' %>
+    <%= link_to 'Delete Review', publics_review_path(@review), method: :delete, data: { confirm: 'この投稿を削除してもよろしいでしょうか?' } %>
   </div>
 <% end %>
