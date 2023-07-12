@@ -1,15 +1,37 @@
 <h1>Edit Review</h1>
 
-<%= form_with(model: [:publics,  @review]) do |form| %>
+<%= form_with(model: [@shop,  @review],url:publics_shop_review_path) do |form| %>
   <div>
     <%= form.label :content %>
     <%= form.text_area :content %>
   </div>
 
+
+    <div class="form-group" id="star">
+      <%= form.label :star %>
+      <%= form.hidden_field :star, id: :star, class: 'form-control' %>
+      <div id="post_raty"></div>
+    </div>
+    <script>
+      $(document).on('turbolinks:load', function() {
+        let elem = document.querySelector('#post_raty');
+        if (elem == null) return;
+
+        elem.innerHTML = ""
+        let opt = {
+          starOn: "<%= asset_path('star-on.png') %>",
+          starOff: "<%= asset_path('star-off.png') %>",
+          starHalf: "<%= asset_path('star-half.png') %>",
+          scoreName: 'review[star]',
+        };
+        raty(elem, opt);
+      });
+    </script>
+
   <%= form.hidden_field :shop_id, value: @review.shop_id %>
 
   <div>
     <%= form.submit 'Update Review' %>
-    <%= link_to 'Delete Review', publics_review_path(@review), method: :delete, data: { confirm: 'この投稿を削除してもよろしいでしょうか?' } %>
+    <%= link_to 'Delete Review', publics_shop_review_path(@review), method: :delete, data: { confirm: 'この投稿を削除してもよろしいでしょうか?' } %>
   </div>
 <% end %>

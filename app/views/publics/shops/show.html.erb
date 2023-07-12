@@ -1,3 +1,4 @@
+<div style="text-align: center;">
 <h1>店舗詳細</h1>
 
 <div>
@@ -14,39 +15,86 @@
   <% end %>
 </div>
 
-<div>
-  <h2>Shop Information</h2>
-  <ul>
-    <li>店舗名: <%= @shop.name %></li>
-    <li>店舗説明: <%= @shop.explanation %></li>
-    <li>郵便番号: <%= @shop.post_code %></li>
-    <li>住所: <%= @shop.address %></li>
-    <li>電話番号: <%= @shop.phone_number %></li>
-    <li>開店時間: <%= @shop.open_time %></li>
-    <li>閉店時間: <%= @shop.close_time %></li>
-  </ul>
 </div>
+
+<div style="text-align: center;">
+  <h2 style="font-size: 60px;">----Shop Information----</h2>
+  <h1 style="font-size: 48px;">店舗名：<%= @shop.name %></h1>
+  <p style="font-size: 30px;">店舗説明:<%= @shop.explanation %></p>
+  <div style="display: flex; justify-content: center;">
+    <div style="width: 150px; margin-right: 20px;">
+      <p style="font-size: 14px;"><strong>開店時間:</strong> <%= @shop.open_time.strftime("%H:%M")  %></p>
+    </div>
+    <div style="width: 150px;">
+      <p style="font-size: 14px;"><strong>閉店時間:</strong> <%= @shop.close_time.strftime("%H:%M")  %></p>
+    </div>
+  </div>
+  <div style="display: flex; justify-content: center;">
+    <div style="width: 150px; margin-right: 20px;">
+     <p style="font-size: 12px;">
+    住所: 〒<%= @shop.post_code %> <%= @shop.address %></p>
+    </div>
+    <div style="width: 150px;">
+      <p style="font-size: 12px;"><strong>電話番号:</strong> <%= @shop.phone_number %></p>
+    </div>
+  </div>
+</div>
+
 
 <h2>Reviews</h2>
 
 <% @shop.reviews.each do |review| %>
-  <p><strong><%= review.user.nickname %>:</strong> <%= review.content %></p>
-  <% if review.user == current_user %>
-    <%= link_to '投稿の編集', edit_publics_review_path(review) %>
-  <% end %>
-
-  <% review.replies.each do |reply| %>
-   <p><strong><%= reply.user.nickname %>:</strong> <%= reply.content %></p>
-  <% end %>
-
-  <% if review.user != current_user %>
-      <%= form_with(model: review.replies.new, url: publics_replies_path(review), method: :post) do |form| %>
-        <%= form.hidden_field :review_id, value: review.id %>
-        <%= form.text_field :content %>
-        <%= form.submit 'Reply' %>
+  <div class="user-info">
+      <% if review.user.profile_image.attached? %>
+        <%= image_tag review.user.profile_image.variant(resize: '50x50') %>
+      <% else %>
+        <%= image_tag 'default_profile_image.png', size: '50x50' %>
       <% end %>
-  <% end %>
+      <div class="name-content">
+        <p><strong>⚫️<%= review.user.nickname %>:</strong> <%= review.content %></p>
+      </div>
+    </div>
 
+  <div id="star_<%=review.id %>"></div>
+    <script>
+    $(document).on('turbolinks:load', function() {
+      let elem = document.querySelector('#star_<%= review.id %>');
+      if (elem == null) return;
+
+      elem.innerHTML = "";
+      let opt = {
+        starOn: "<%= asset_path('star-on.png') %>",
+        starOff: "<%= asset_path('star-off.png') %>",
+        starHalf: "<%= asset_path('star-half.png') %>",
+        score: "<%= review.star %>",
+        readOnly: true,
+      };
+      raty(elem, opt);
+    });
+    </script>
+
+        <% if review.user == current_user %>
+          <div class="review-actions">
+            <%= link_to '投稿の編集', edit_publics_shop_review_path(review.shop_id,review.id) %>
+          </div>
+        <% end %>
+
+        <% review.replies.each do |reply| %>
+          <div class="reply">
+            <p><strong>↑<%= reply.user.nickname %>:</strong> <%= reply.content %></p>
+          </div>
+        <% end %>
+
+    <% if review.user != current_user %>
+      <div class="reply-form">
+        <%= form_with(model: review.replies.new, url: publics_replies_path(review), method: :post) do |form| %>
+          <%= form.hidden_field :review_id, value: review.id %>
+          <%= form.text_field :content %>
+          <%= form.submit 'Reply' %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 <% end %>
 
-<%= link_to 'この店舗のレビューを書く', new_publics_review_path(shop_id: @shop.id) %>
+<%= link_to 'この店舗のレビューを書く', new_publics_shop_review_path(shop_id: @shop.id) %>

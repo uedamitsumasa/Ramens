@@ -12,8 +12,11 @@ Rails.application.routes.draw do
   end
 
   namespace :publics do
-    resources 'reviews'
-    resources 'shops'
+
+    resources 'shops' do
+      resources 'reviews'
+    end
+
     resources 'users'
     resources :replies, only: [:create]
   end

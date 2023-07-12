@@ -1,14 +1,32 @@
-<h1>New Review</h1>
+<h1>レビューの投稿</h1>
 
-<%= form_with(model: [:publics, @review]) do |form| %>
-  <div>
-    <%= form.label :content %>
-    <%= form.text_area :content %>
-  </div>
+<%= form_with(model: @review, url: publics_shop_reviews_path(@shop.id), method: :post) do |form| %>
+  <!-- レビューフィールド -->
+  <%= form.text_area :content %>
 
-  <%= form.hidden_field :shop_id, value: params[:shop_id] %>
+    <div class="form-group" id="star">
+      <%= form.label :star %>
+      <%= form.hidden_field :star, id: :star, class: 'form-control' %>
+      <div id="post_raty"></div>
+    </div>
+    <script>
+      $(document).on('turbolinks:load', function() {
+        let elem = document.querySelector('#post_raty');
+        if (elem == null) return;
 
-  <div>
-    <%= form.submit 'Submit Review' %>
+        elem.innerHTML = ""
+        let opt = {
+          starOn: "<%= asset_path('star-on.png') %>",
+          starOff: "<%= asset_path('star-off.png') %>",
+          starHalf: "<%= asset_path('star-half.png') %>",
+          scoreName: 'review[star]',
+        };
+        raty(elem, opt);
+      });
+    </script>
+
+  <div class="form-group">
+    <%= form.submit class: 'btn btn-success' %>
   </div>
 <% end %>
+
