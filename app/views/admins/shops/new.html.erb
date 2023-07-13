@@ -46,6 +46,11 @@
     <%= form.file_field :noodle_images, multiple: true %>
   </div>
 
+  <div class="check_box">
+    <label class="form-label">ジャンルタグ</label>
+    <%= form.collection_check_boxes(:genre_ids, Genre.all, :id, :name) %>
+  </div>
+
   <div>
     <%= form.submit "Add Shop" %>
   </div>

@@ -28,5 +28,12 @@
     <li>電話番号: <%= @shop.phone_number %></li>
     <li>開店時間: <%= @shop.open_time %></li>
     <li>閉店時間: <%= @shop.close_time %></li>
+
+    <li>
+      <strong>ジャンルタグ：</strong>
+      <% @shop.genres.each do |genre| %>
+      <%= genre.name %>
+    </li>
+  <% end %>
   </ul>
 </div>

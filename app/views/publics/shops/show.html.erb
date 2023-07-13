@@ -20,6 +20,9 @@
 <div style="text-align: center;">
   <h2 style="font-size: 60px;">----Shop Information----</h2>
   <h1 style="font-size: 48px;">店舗名：<%= @shop.name %></h1>
+  <p style="font-size: 30px;">ジャンルタグ:<% @shop.genres.each do |genre| %>
+      <%= genre.name %>
+      <% end %></p>
   <p style="font-size: 30px;">店舗説明:<%= @shop.explanation %></p>
   <div style="display: flex; justify-content: center;">
     <div style="width: 150px; margin-right: 20px;">

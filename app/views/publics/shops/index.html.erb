@@ -1,11 +1,24 @@
 <h1>ラーメン屋一覧</h1>
 
+<%= form_tag publics_shops_path, method: :get, class: 'boards__searchForm' do %>
+
+  <% @genres.each do |genre| %>
+      <div class="tag-box">
+        <%= link_to genre.name, publics_shops_path(name: genre.id) %>
+      </div>
+  <% end %>
+        <div class="tag-box">
+        <%= link_to "全ての店舗", publics_shops_path %>
+        </div>
+  <% end %>
+
 <table>
   <thead>
     <tr>
       <th></th>
       <th>店舗名</th>
-      <th></th>
+      <th>リンク</th>
+      <th>ジャンルタグ</th>
     </tr>
   </thead>
   <tbody>
@@ -22,5 +35,11 @@
         <td>
           <%= link_to '詳細リンク', publics_shop_path(shop) %>
         </td>
+
+        <td><% shop.genres.each do |genre| %>
+        <%= genre.name %>
+         <% end %>
+         </td>
+
       </tr>
     <% end %>

@@ -1,0 +1,31 @@
+<h1>レビュー&リプライ</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Content</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @reviews.each do |review| %>
+      <tr>
+        <td><%= review.user.nickname %></td>
+        <td><%= review.content %></td>
+        <td>
+          <%= link_to 'View Review', admins_review_path(review) %>
+        </td>
+      </tr>
+      <% review.replies.each do |reply| %>
+        <tr>
+          <td><%= reply.user.nickname %></td>
+          <td><%= reply.content %></td>
+          <td>
+            <%= link_to 'View Review', admins_review_path(reply.review) %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

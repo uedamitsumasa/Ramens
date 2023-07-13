@@ -77,7 +77,7 @@ ActiveRecord::Schema.define(version: 2023_07_11_071327) do
   create_table "genres", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "name", null: false
+    t.string "name", null: false
   end
 
   create_table "replies", force: :cascade do |t|

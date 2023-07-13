@@ -3,7 +3,8 @@ class Publics::ShopsController < ApplicationController
 
 
   def index
-    @shops = Shop.with_attached_shop_image.all
+    @shops = params[:name].present? ? Genre.find(params[:name]).shops : Shop.with_attached_shop_image.all
+    @genres = Genre.all
   end
 
   def show

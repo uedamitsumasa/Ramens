@@ -28,6 +28,7 @@ Rails.application.routes.draw do
     resources 'reviews'
     resources 'shops'
     resources 'users'
+    resources 'replies'
     get '/' => 'homes#top'
   end
 

@@ -1,0 +1,16 @@
+<h1>Review Details</h1>
+
+<p><strong>User:</strong> <%= @review.user.nickname %></p>
+<p><strong>Content:</strong> <%= @review.content %></p>
+<%= link_to 'Delete', admins_review_path(@review), method: :delete, data: { confirm: 'Are you sure you want to delete this review?' } %>
+
+
+<h2>Replies</h2>
+
+<% @replies.each do |reply| %>
+  <div class="reply">
+    <p><strong>User:</strong> <%= reply.user.nickname %></p>
+    <p><strong>Content:</strong> <%= reply.content %></p>
+    <%= link_to 'Delete', admins_reply_path(reply), method: :delete, data: { confirm: 'Are you sure you want to delete this reply?' } %>
+  </div>
+<% end %>

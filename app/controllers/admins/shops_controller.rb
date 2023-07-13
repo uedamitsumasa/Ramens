@@ -43,7 +43,7 @@ class Admins::ShopsController < ApplicationController
   private
 
   def shop_params
-    params.require(:shop).permit(:name, :explanation, :post_code, :address, :phone_number, :open_time, :close_time,:shop_image,noodle_images: [])
+    params.require(:shop).permit(:name, :explanation, :post_code, :address, :phone_number, :open_time, :close_time,:shop_image,genre_ids: [],noodle_images: [])
   end
 
   def set_shop
