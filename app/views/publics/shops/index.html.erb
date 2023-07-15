@@ -1,16 +1,13 @@
 <h1>ラーメン屋一覧</h1>
 
-<%= form_tag publics_shops_path, method: :get, class: 'boards__searchForm' do %>
+<%= form_with url: publics_shops_path, method: :get, class: 'boards__searchForm' do |f| %>
+  <div class="search-box">
+    <%= f.text_field :keyword, value: params[:keyword], placeholder: "キーワードを入力" %>
 
-  <% @genres.each do |genre| %>
-      <div class="tag-box">
-        <%= link_to genre.name, publics_shops_path(name: genre.id) %>
-      </div>
-  <% end %>
-        <div class="tag-box">
-        <%= link_to "全ての店舗", publics_shops_path %>
-        </div>
-  <% end %>
+    <%= f.collection_check_boxes :genre_ids, Genre.all, :id, :name, {include_hidden: false,class:"form-check-input"} %>
+    <%= f.submit '検索' %>
+  </div>
+<% end %>
 
 <table>
   <thead>
@@ -35,11 +32,11 @@
         <td>
           <%= link_to '詳細リンク', publics_shop_path(shop) %>
         </td>
-
-        <td><% shop.genres.each do |genre| %>
-        <%= genre.name %>
-         <% end %>
-         </td>
-
+        <td>
+          <% shop.genres.each do |genre| %>
+            <%= genre.name %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
+</table>

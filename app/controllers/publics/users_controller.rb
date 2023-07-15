@@ -3,7 +3,11 @@ before_action :set_user, only: [:show, :edit, :update, :destroy]
 before_action :check_owner, only: [:edit, :update, :destroy]
 
   def index
+    if params[:keyword].present?
+    @users = User.where("nickname LIKE ?", "%#{params[:keyword]}%")
+    else
     @users = User.all
+    end
   end
 
 
