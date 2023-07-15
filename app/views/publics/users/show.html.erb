@@ -1,3 +1,11 @@
+<% if @user.id != current_user.id %>
+  <% if current_user.following?(@user) %>
+    <%= link_to "フォロー外す", publics_user_follows_path(@user.id), method: :delete %>
+  <% else %>
+    <%= link_to "フォローする", publics_user_follows_path(@user.id), method: :post %>
+  <% end %>
+<% end %>
+
 <h1>ユーザー詳細</h1>
 
 <% if @user.profile_image.attached? %>

@@ -17,7 +17,12 @@ Rails.application.routes.draw do
       resources 'reviews'
     end
 
-    resources 'users'
+   resources :users do
+    resource :follows, only: [:create, :destroy]
+    get 'followings' => 'follows#followings', as: 'followings'
+    get 'followers' => 'follows#followers', as: 'followers'
+  end
+  
     resources :replies, only: [:create]
   end
 

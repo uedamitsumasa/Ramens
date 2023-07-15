@@ -1,18 +1,31 @@
-<h1>User List</h1>
+<h1>ユーザー一覧</h1>
+
+<%= form_with(url: admins_users_path, method: :get, class: 'search-form') do |form| %>
+  <%= form.text_field :keyword, placeholder: 'キーワードを入力' %>
+  <%= form.submit '検索' %>
+<% end %>
 
 <table>
   <thead>
     <tr>
-      <th>Nickname</th>
-      <th>Address</th>
+      <th></th>
+      <th>ニックネーム</th>
       <th></th>
     </tr>
   </thead>
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= user.nickname %></td>
-        <td><%= user.address %></td>
+        <td>
+          <% if user.profile_image.attached? %>
+            <%= image_tag user.profile_image.variant(resize: '100x100') %>
+          <% else %>
+            No Image
+          <% end %>
+        </td>
+        <td>
+          <%= user.nickname %>
+        </td>
         <td>
           <%= link_to 'Show', admins_user_path(user) %>
         </td>

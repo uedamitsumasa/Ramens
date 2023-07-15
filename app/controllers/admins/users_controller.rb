@@ -3,6 +3,9 @@ class Admins::UsersController < ApplicationController
 
   def index
     @users = User.all
+    if params[:keyword].present?
+      @users = @users.where('nickname LIKE ?', "%#{params[:keyword]}%")
+    end
   end
 
   def show

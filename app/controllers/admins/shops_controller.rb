@@ -16,7 +16,11 @@ class Admins::ShopsController < ApplicationController
   end
 
   def index
-  @shops = Shop.with_attached_shop_image.all
+  if params[:search].present?
+    @shops = Shop.where("name LIKE ?", "%#{params[:search]}%")
+  else
+    @shops = Shop.with_attached_shop_image.all
+  end
   end
 
   def show
