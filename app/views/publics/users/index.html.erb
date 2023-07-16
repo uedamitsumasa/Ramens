@@ -1,18 +1,23 @@
 <h1>ユーザー一覧</h1>
-<%= form_tag publics_users_path, method: :get, class: 'boards__searchForm' do %>
-<%= text_field_tag :keyword, params[:keyword], placeholder: 'ニックネームで検索' %>
-<%= submit_tag '検索' %>
+
+<%= form_with url: publics_users_path, method: :get, class: 'boards__searchForm' do |form| %>
+  <div class="input-group mb-3">
+    <%= form.text_field :keyword, value: params[:keyword], placeholder: 'ニックネームで検索', class: 'form-control' %>
+    <div class="input-group-append">
+      <%= form.submit '検索', class: 'btn btn-primary' %>
+    </div>
+  </div>
 <% end %>
 
-<table>
+<table class="table">
   <thead>
     <tr>
-      <th>プロフ画像</th>
-      <th>ニックネーム</th>
-      <th>一言コメント</th>
-      <th>詳細</th>
-      <th></th>
-      <th></th>
+      <th scope="col">プロフ画像</th>
+      <th scope="col">ニックネーム</th>
+      <th scope="col">一言コメント</th>
+      <th scope="col">詳細</th>
+      <th scope="col">フォロー</th>
+      <th scope="col">フォロワー</th>
     </tr>
   </thead>
   <tbody>
@@ -20,7 +25,7 @@
       <tr>
         <td>
           <% if user.profile_image.attached? %>
-            <%= image_tag user.profile_image.variant(resize: '100x100') %>
+            <%= image_tag user.profile_image.variant(resize: '100x100'), class: 'img-thumbnail' %>
           <% else %>
             No Image
           <% end %>
@@ -33,10 +38,11 @@
             No comment
           <% end %>
         </td>
-        <td><%= link_to 'View', publics_user_path(user) %></td>
-        <td>フォロー数: <%= user.followings.count %></td>
-        <td>フォロワー数: <%= user.followers.count %></td>
+        <td><%= link_to 'View', publics_user_path(user), class: 'btn btn-secondary' %></td>
+        <td>フォロー: <%= link_to user.followings.count, publics_user_followings_path(user), class: 'btn btn-outline-info' %></td>
+        <td>フォロワー: <%= link_to user.followers.count, publics_user_followers_path(user), class: 'btn btn-outline-info' %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+

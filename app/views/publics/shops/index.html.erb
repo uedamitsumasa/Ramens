@@ -1,42 +1,50 @@
-<h1>ラーメン屋一覧</h1>
+<div class="container">
+  <h1 class="mb-4">ラーメン屋一覧</h1>
 
-<%= form_with url: publics_shops_path, method: :get, class: 'boards__searchForm' do |f| %>
-  <div class="search-box">
-    <%= f.text_field :keyword, value: params[:keyword], placeholder: "キーワードを入力" %>
+  <%= form_with url: publics_shops_path, method: :get, class: 'boards__searchForm' do |f| %>
+    <div class="input-group mb-3">
+      <%= f.text_field :keyword, value: params[:keyword], placeholder: "キーワードを入力", class: "form-control" %>
+      <div class="input-group-append">
+        <%= f.submit '検索', class: "btn btn-primary" %>
+      </div>
+    </div>
 
-    <%= f.collection_check_boxes :genre_ids, Genre.all, :id, :name, {include_hidden: false,class:"form-check-input"} %>
-    <%= f.submit '検索' %>
-  </div>
-<% end %>
+    <div class="form-group">
+      <%= f.collection_check_boxes :genre_ids, Genre.all, :id, :name, { include_hidden: false, class: "form-check-input" } %>
+    </div>
+  <% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th></th>
-      <th>店舗名</th>
-      <th>リンク</th>
-      <th>ジャンルタグ</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @shops.each do |shop| %>
+  <table class="table">
+    <thead>
       <tr>
-        <td>
-          <% if shop.shop_image.attached? %>
-            <%= image_tag shop.shop_image.variant(resize: '100x100') %>
-          <% else %>
-            No Image
-          <% end %>
-        </td>
-        <td><%= shop.name %></td>
-        <td>
-          <%= link_to '詳細リンク', publics_shop_path(shop) %>
-        </td>
-        <td>
-          <% shop.genres.each do |genre| %>
-            <%= genre.name %>
-          <% end %>
-        </td>
+        <th scope="col"></th>
+        <th scope="col">店舗名</th>
+        <th scope="col">リンク</th>
+        <th scope="col">ジャンルタグ</th>
       </tr>
-    <% end %>
-</table>
+    </thead>
+    <tbody>
+      <% @shops.each do |shop| %>
+        <tr>
+          <td>
+            <% if shop.shop_image.attached? %>
+              <%= image_tag shop.shop_image.variant(resize: '100x100'), class: "img-thumbnail" %>
+            <% else %>
+              No Image
+            <% end %>
+          </td>
+          <td><%= shop.name %></td>
+          <td>
+            <%= link_to '詳細リンク', publics_shop_path(shop), class: "btn btn-primary" %>
+          </td>
+          <td>
+            <% shop.genres.each do |genre| %>
+              <span class="badge badge-primary"><%= genre.name %></span>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+

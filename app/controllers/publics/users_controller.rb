@@ -1,5 +1,5 @@
 class Publics::UsersController < ApplicationController
-before_action :set_user, only: [:show, :edit, :update, :destroy]
+before_action :set_user, only: [:show, :edit, :update, :destroy, :followings, :followers]
 before_action :check_owner, only: [:edit, :update, :destroy]
 
   def index
@@ -25,6 +25,14 @@ before_action :check_owner, only: [:edit, :update, :destroy]
   def destroy
     @user.destroy
     redirect_to root_path, notice: 'User was successfully deleted.'
+  end
+  
+  def followings
+    @users = @user.followings
+  end
+
+  def followers
+    @users = @user.followers
   end
 
   private
