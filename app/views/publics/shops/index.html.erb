@@ -3,7 +3,7 @@
 
   <%= form_with url: publics_shops_path, method: :get, class: 'boards__searchForm' do |f| %>
     <div class="input-group mb-3">
-      <%= f.text_field :keyword, value: params[:keyword], placeholder: "キーワードを入力", class: "form-control" %>
+      <%= f.text_field :keyword, value: params[:keyword], placeholder: "キーワードを入力(店名や住所）", class: "form-control" %>
       <div class="input-group-append">
         <%= f.submit '検索', class: "btn btn-primary" %>
       </div>
@@ -19,6 +19,7 @@
       <tr>
         <th scope="col"></th>
         <th scope="col">店舗名</th>
+        <th scope="col">住所</th>
         <th scope="col">リンク</th>
         <th scope="col">ジャンルタグ</th>
       </tr>
@@ -30,10 +31,11 @@
             <% if shop.shop_image.attached? %>
               <%= image_tag shop.shop_image.variant(resize: '100x100'), class: "img-thumbnail" %>
             <% else %>
-              No Image
+              <%= image_tag 'no_image.jpg', class: 'img-thumbnail' %>
             <% end %>
           </td>
           <td><%= shop.name %></td>
+          <td><%= shop.address %></td>
           <td>
             <%= link_to '詳細リンク', publics_shop_path(shop), class: "btn btn-primary" %>
           </td>
@@ -47,4 +49,3 @@
     </tbody>
   </table>
 </div>
-

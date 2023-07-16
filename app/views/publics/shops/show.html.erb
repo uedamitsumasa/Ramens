@@ -1,103 +1,130 @@
-<div style="text-align: center;">
-<h1>店舗詳細</h1>
+<div class="container">
+  <div class="text-center">
+    <h1>店舗詳細</h1>
 
-<div>
-  <% if @shop.shop_image.attached? %>
-    <%= image_tag @shop.shop_image.variant(resize: '500x500') %>
-  <% else %>
-    No Image
-  <% end %>
-</div>
-
-<div>
-  <% @shop.noodle_images.each do |image| %>
-    <%= image_tag image.variant(resize: '200x200') %>
-  <% end %>
-</div>
-
-</div>
-
-<div style="text-align: center;">
-  <h2 style="font-size: 60px;">----Shop Information----</h2>
-  <h1 style="font-size: 48px;">店舗名：<%= @shop.name %></h1>
-  <p style="font-size: 30px;">ジャンルタグ:<% @shop.genres.each do |genre| %>
-      <%= genre.name %>
-      <% end %></p>
-  <p style="font-size: 30px;">店舗説明:<%= @shop.explanation %></p>
-  <div style="display: flex; justify-content: center;">
-    <div style="width: 150px; margin-right: 20px;">
-      <p style="font-size: 14px;"><strong>開店時間:</strong> <%= @shop.open_time.strftime("%H:%M")  %></p>
-    </div>
-    <div style="width: 150px;">
-      <p style="font-size: 14px;"><strong>閉店時間:</strong> <%= @shop.close_time.strftime("%H:%M")  %></p>
-    </div>
-  </div>
-  <div style="display: flex; justify-content: center;">
-    <div style="width: 150px; margin-right: 20px;">
-     <p style="font-size: 12px;">
-    住所: 〒<%= @shop.post_code %> <%= @shop.address %></p>
-    </div>
-    <div style="width: 150px;">
-      <p style="font-size: 12px;"><strong>電話番号:</strong> <%= @shop.phone_number %></p>
-    </div>
-  </div>
-</div>
-
-
-<h2>Reviews</h2>
-
-<% @shop.reviews.each do |review| %>
-  <div class="user-info">
-      <% if review.user.profile_image.attached? %>
-        <%= image_tag review.user.profile_image.variant(resize: '50x50') %>
+    <div class="mb-4">
+      <% if @shop.shop_image.attached? %>
+        <%= image_tag @shop.shop_image.variant(resize: '500x500'), class: 'img-thumbnail' %>
       <% else %>
-        <%= image_tag 'default_profile_image.png', size: '50x50' %>
+        <%= image_tag 'no_image.jpg', class: 'img-thumbnail' %>
       <% end %>
-      <div class="name-content">
-        <p><strong>⚫️<%= review.user.nickname %>:</strong> <%= review.content %></p>
+    </div>
+
+    <div class="mb-4">
+      <% @shop.noodle_images.each do |image| %>
+        <%= image_tag image.variant(resize: '200x200'), class: 'img-thumbnail' %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="text-center">
+    <h2 class="display-4">----Shop Information----</h2>
+    <h1 class="display-3">店舗名：<%= @shop.name %></h1>
+    <p class="lead">ジャンルタグ:
+      <% @shop.genres.each do |genre| %>
+        <%= genre.name %>
+      <% end %>
+    </p>
+    <p class="lead">店舗説明：<%= @shop.explanation %></p>
+
+    <div class="row justify-content-center">
+      <div class="col-6">
+        <p class="font-weight-bold">開店時間: <%= @shop.open_time.strftime("%H:%M") %></p>
+      </div>
+      <div class="col-6">
+        <p class="font-weight-bold">閉店時間: <%= @shop.close_time.strftime("%H:%M") %></p>
       </div>
     </div>
 
-  <div id="star_<%=review.id %>"></div>
-    <script>
-    $(document).on('turbolinks:load', function() {
-      let elem = document.querySelector('#star_<%= review.id %>');
-      if (elem == null) return;
+    <div class="row justify-content-center">
+      <div class="col-6">
+        <p class="font-size-sm">
+          住所: 〒<%= @shop.post_code %> <%= @shop.address %>
+        </p>
+      </div>
+      <div class="col-6">
+        <p class="font-size-sm">電話番号: <%= @shop.phone_number %></p>
+      </div>
+    </div>
+  </div>
 
-      elem.innerHTML = "";
-      let opt = {
-        starOn: "<%= asset_path('star-on.png') %>",
-        starOff: "<%= asset_path('star-off.png') %>",
-        starHalf: "<%= asset_path('star-half.png') %>",
-        score: "<%= review.star %>",
-        readOnly: true,
-      };
-      raty(elem, opt);
-    });
-    </script>
+  <h2 class="mt-5">Reviews</h2>
+
+  <% @shop.reviews.each do |review| %>
+    <div class="media border border-dark mt-4">
+      <% if review.user.profile_image.attached? %>
+        <%= image_tag review.user.profile_image.variant(resize: '50x50'), class: 'mr-3 rounded-circle' %>
+      <% else %>
+        <%= image_tag 'default_profile_image.png', size: '50x50', class: 'mr-3 rounded-circle' %>
+      <% end %>
+      <div class="media-body">
+        <h5 class="mt-0">⚫️<%= review.user.nickname %></h5>
+        <p><%= review.content %></p>
+
+        <div id="star_<%= review.id %>"></div>
+        <script>
+          $(document).on('turbolinks:load', function() {
+            let elem = document.querySelector('#star_<%= review.id %>');
+            if (elem == null) return;
+
+            elem.innerHTML = "";
+            let opt = {
+              starOn: "<%= asset_path('star-on.png') %>",
+              starOff: "<%= asset_path('star-off.png') %>",
+              starHalf: "<%= asset_path('star-half.png') %>",
+              score: "<%= review.star %>",
+              readOnly: true,
+            };
+            raty(elem, opt);
+          });
+        </script>
 
         <% if review.user == current_user %>
           <div class="review-actions">
-            <%= link_to '投稿の編集', edit_publics_shop_review_path(review.shop_id,review.id) %>
+            <%= link_to 'レビューの編集', edit_publics_shop_review_path(review.shop_id, review.id), class: 'btn btn-primary btn-sm' %>
           </div>
         <% end %>
+
+        <br />
+        <div class='text-decoration-underline'>
+          リプライ
+        </div>
 
         <% review.replies.each do |reply| %>
-          <div class="reply">
-            <p><strong>↑<%= reply.user.nickname %>:</strong> <%= reply.content %></p>
+          <div class="media border border-dark mt-4">
+            <% if reply.user.profile_image.attached? %>
+              <%= image_tag reply.user.profile_image.variant(resize: '50x50'), class: 'mr-3 rounded-circle' %>
+            <% else %>
+              <%= image_tag 'default_profile_image.png', size: '50x50', class: 'mr-3 rounded-circle' %>
+            <% end %>
+            <div class="media-body">
+              <h5 class="mt-0">⚫️<%= reply.user.nickname %></h5>
+              <p><%= reply.content %></p>
+              <% if reply.user == current_user %>
+                <div class="review-actions">
+                  <%= link_to 'リプライの編集', edit_publics_reply_path(reply), class: 'btn btn-primary btn-sm' %>
+                </div>
+              <% end %>
+            </div>
           </div>
         <% end %>
 
-    <% if review.user != current_user %>
-      <div class="reply-form">
-        <%= form_with(model: review.replies.new, url: publics_replies_path(review), method: :post) do |form| %>
-          <%= form.hidden_field :review_id, value: review.id %>
-          <%= form.text_field :content %>
-          <%= form.submit 'Reply' %>
+        <br />
+
+        <% if review.user != current_user %>
+          <div class="reply-form">
+            <%= form_with(model: review.replies.new, url: publics_replies_path(review), method: :post, class: 'mb-3') do |form| %>
+              <%= form.hidden_field :review_id, value: review.id %>
+              <%= form.text_field :content, class: 'form-control', placeholder: '返信を入力' %>
+              <%= form.submit 'Reply', class: 'btn btn-primary btn-sm' %>
+            <% end %>
+          </div>
         <% end %>
       </div>
-    <% end %>
-  </div>
-<% end %>
+    </div>
+  <% end %>
 
-<%= link_to 'この店舗のレビューを書く', new_publics_shop_review_path(shop_id: @shop.id) %>
+  <div class="text-center mt-5">
+    <%= link_to 'この店舗のレビューを書く', new_publics_shop_review_path(shop_id: @shop.id), class: 'btn btn-primary' %>
+  </div>
+</div>

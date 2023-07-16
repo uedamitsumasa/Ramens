@@ -12,6 +12,24 @@ class Publics::RepliesController < ApplicationController
     end
   end
 
+  def destroy
+    @reply = Reply.find(params[:id])
+    @reply.destroy
+    redirect_to root_path, notice: 'Reply was successfully deleted.'
+  end
+
+  def edit
+    @reply = Reply.find(params[:id])
+  end
+
+  def update
+    @reply = Reply.find(params[:id])
+    @reply.update(reply_params)
+    redirect_to root_path, notice: 'Reply was successfully update.'
+  end
+
+
+
   private
 
   def set_review

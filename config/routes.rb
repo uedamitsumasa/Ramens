@@ -23,7 +23,7 @@ Rails.application.routes.draw do
     get 'followers' => 'follows#followers', as: 'followers'
   end
 
-    resources :replies, only: [:create]
+    resources :replies, only: [:create,:edit, :update,:destroy]
   end
 
 

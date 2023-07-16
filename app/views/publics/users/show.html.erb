@@ -30,6 +30,30 @@
 <p><strong>Created At:</strong> <%= @user.created_at %></p>
 <p><strong>Updated At:</strong> <%= @user.updated_at %></p>
 
+<div>
+  <h2>Reviews</h2>
+  <% if @user.reviews.any? %>
+    <table>
+      <thead>
+        <tr>
+          <th>Content</th>
+          <th>Rating</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @user.reviews.each do |review| %>
+          <tr>
+            <td><%= review.content %></td>
+            <td><%= review.star %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>No reviews available</p>
+  <% end %>
+</div>
+
 <% if @user == current_user %>
 <%= link_to 'Edit User', edit_publics_user_path(@user) %>
 <% end %>
