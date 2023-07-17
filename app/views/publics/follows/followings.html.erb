@@ -1,5 +1,44 @@
-<p>フォロー一覧</p><br/>
-  <% @users.each do |user| %>
-  <%= user.nickname %>
-  <%= link_to 'View', publics_user_path(user) %>
-<% end %>
+<div class="container">
+  <h1>フォロー一覧</h1>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">ニックネーム</th>
+        <th scope="col">一言コメント</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td>
+            <% if user.profile_image.attached? %>
+              <%= image_tag user.profile_image.variant(resize: '100x100'), class: 'img-thumbnail' %>
+            <% else %>
+              <%= image_tag 'no_image.jpg', class: 'img-thumbnail' %>
+            <% end %>
+          </td>
+          <td><%= user.nickname %></td>
+          <td>
+            <% if user.profile? %>
+              <%= user.profile %>
+            <% else %>
+              No comment
+            <% end %>
+          </td>
+          <td><%= link_to '詳細へ', publics_user_path(user), class: 'btn btn-secondary' %></td>
+          <td>
+            <% if current_user.following?(user) %>
+              <%= link_to 'フォロー外す', publics_user_follows_path(user), method: :delete, class: 'btn btn-danger' %>
+            <% else %>
+              <%= link_to 'フォローする', publics_user_follows_path(user), method: :post, class: 'btn btn-primary' %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

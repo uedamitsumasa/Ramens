@@ -1,59 +1,107 @@
-<% if @user.id != current_user.id %>
-  <% if current_user.following?(@user) %>
-    <%= link_to "フォロー外す", publics_user_follows_path(@user.id), method: :delete %>
-  <% else %>
-    <%= link_to "フォローする", publics_user_follows_path(@user.id), method: :post %>
-  <% end %>
-<% end %>
+<div class="container">
+  <div class="text-center mb-4">
+    <h1><%= @user.nickname %>さんの詳細ページです</h1>
+  </div>
 
-<h1>ユーザー詳細</h1>
-フォロー<%= link_to @user.followings.count, publics_user_followings_path(@user) %>
-フォロワー<%= link_to @user.followers.count, publics_user_followers_path(@user) %>
-
-<% if @user.profile_image.attached? %>
-  <h3>Profile Image</h3>
-  <%= image_tag @user.profile_image.variant(resize: '200x200') %>
-<% else %>
-  <p>No Image</p>
-<% end %>
-
-<p><strong>Last Name:</strong> <%= @user.last_name %></p>
-<p><strong>First Name:</strong> <%= @user.first_name %></p>
-<p><strong>Last Name (Katakana):</strong> <%= @user.last_name_katakana %></p>
-<p><strong>First Name (Katakana):</strong> <%= @user.first_name_katakana %></p>
-<p><strong>Nickname:</strong> <%= @user.nickname %></p>
-<p><strong>Post Code:</strong> <%= @user.post_code %></p>
-<p><strong>Address:</strong> <%= @user.address %></p>
-<p><strong>Phone Number:</strong> <%= @user.phone_number %></p>
-<p><strong>Profile:</strong> <%= @user.profile %></p>
-<p><strong>Email:</strong> <%= @user.email %></p>
-<p><strong>Created At:</strong> <%= @user.created_at %></p>
-<p><strong>Updated At:</strong> <%= @user.updated_at %></p>
-
-<div>
-  <h2>Reviews</h2>
-  <% if @user.reviews.any? %>
-    <table>
-      <thead>
-        <tr>
-          <th>Content</th>
-          <th>Rating</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @user.reviews.each do |review| %>
-          <tr>
-            <td><%= review.content %></td>
-            <td><%= review.star %></td>
-          </tr>
+  <div class="col-md-4">
+    <div class="text-center mb-4">
+      <% if @user.id != current_user.id %>
+        <% if current_user.following?(@user) %>
+          <%= link_to "フォロー外す", publics_user_follows_path(@user.id), method: :delete, class: "btn btn-danger" %>
+        <% else %>
+          <%= link_to "フォローする", publics_user_follows_path(@user.id), method: :post, class: "btn btn-primary" %>
         <% end %>
-      </tbody>
-    </table>
-  <% else %>
-    <p>No reviews available</p>
-  <% end %>
-</div>
+      <% end %>
+    </div>
+  </div>
 
-<% if @user == current_user %>
-<%= link_to 'Edit User', edit_publics_user_path(@user) %>
-<% end %>
+  <div class="row">
+    <div class="col-md-4">
+      <% if @user.profile_image.attached? %>
+        <div class="text-center mb-4">
+          <h3>Profile Image</h3>
+          <%= image_tag @user.profile_image.variant(resize: '200x200'), class: "img-thumbnail" %>
+        </div>
+      <% else %>
+        <div class="text-center mb-4">
+          <%= image_tag 'no_image.jpg', class: "img-thumbnail" %>
+        </div>
+      <% end %>
+    </div>
+    <div class="col-md-8">
+      <h4 class="text-center"></h4>
+      <h4 class="text-left"><strong>Nickname:</strong> <%= @user.nickname %></h4>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Comment</h5>
+          <hr>
+          <div class="card-text mb-4" style="height: 60px; overflow-y: auto;">
+            <%= @user.profile %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-1 text-left">
+      <p class="mb-0">
+        <% if @user == current_user %>
+          <%= link_to 'Edit User', edit_publics_user_path(@user), class: "btn btn-success" %>
+        <% end %>
+      </p>
+    </div>
+    <div class="col-md-1 text-center">
+      <p class="mb-0">フォロー <%= link_to @user.followings.count, publics_user_followings_path(@user) %></p>
+    </div>
+    <div class="col-md-1 text-left">
+      <p class="mb-0">フォロワー <%= link_to @user.followers.count, publics_user_followers_path(@user) %></p>
+    </div>
+  </div>
+
+  <div class="mt-4">
+    <h2>Reviews</h2>
+    <% if @user.reviews.any? %>
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Shop</th>
+              <th>Content</th>
+              <th>Rating</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @user.reviews.each do |review| %>
+              <tr>
+                <td><%= link_to review.shop.name, publics_shop_path(review.shop) %></td>
+                <td><%= review.content %></td>
+                <td>
+                  <div id="star_<%= review.id %>"></div>
+                  <script>
+                    $(document).on('turbolinks:load', function() {
+                      let elem = document.querySelector('#star_<%= review.id %>');
+                      if (elem == null) return;
+
+                      elem.innerHTML = "";
+                      let opt = {
+                        starOn: "<%= asset_path('star-on.png') %>",
+                        starOff: "<%= asset_path('star-off.png') %>",
+                        starHalf: "<%= asset_path('star-half.png') %>",
+                        score: "<%= review.star %>",
+                        readOnly: true,
+                      };
+                      raty(elem, opt);
+                    });
+                  </script>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% else %>
+      <p>No reviews available</p>
+    <% end %>
+  </div>
+</div>

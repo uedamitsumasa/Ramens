@@ -20,19 +20,21 @@
   <div class="text-center">
     <h2 class="display-4">----Shop Information----</h2>
     <h1 class="display-3">店舗名：<%= @shop.name %></h1>
+
+    <p class="lead">店舗説明：<%= @shop.explanation %></p>
+
     <p class="lead">ジャンルタグ:
       <% @shop.genres.each do |genre| %>
-        <%= genre.name %>
+        <span class="badge badge-primary"><%= genre.name %></span>
       <% end %>
     </p>
-    <p class="lead">店舗説明：<%= @shop.explanation %></p>
 
     <div class="row justify-content-center">
       <div class="col-6">
-        <p class="font-weight-bold">開店時間: <%= @shop.open_time.strftime("%H:%M") %></p>
+        <p class="font-size-sm">電話番号: <%= @shop.phone_number %></p>
       </div>
       <div class="col-6">
-        <p class="font-weight-bold">閉店時間: <%= @shop.close_time.strftime("%H:%M") %></p>
+        <p class="font-weight-bold">開店時間: <%= @shop.open_time.strftime("%H:%M") %></p>
       </div>
     </div>
 
@@ -43,7 +45,7 @@
         </p>
       </div>
       <div class="col-6">
-        <p class="font-size-sm">電話番号: <%= @shop.phone_number %></p>
+        <p class="font-weight-bold">閉店時間: <%= @shop.close_time.strftime("%H:%M") %></p>
       </div>
     </div>
   </div>
@@ -85,10 +87,12 @@
           </div>
         <% end %>
 
-        <br />
-        <div class='text-decoration-underline'>
-          リプライ
-        </div>
+        <% if review.replies.any? %>
+          <br />
+          <div class='text-decoration-underline' style="font-size: 20px;">
+            Reply
+          </div>
+        <% end %>
 
         <% review.replies.each do |reply| %>
           <div class="media border border-dark mt-4">
