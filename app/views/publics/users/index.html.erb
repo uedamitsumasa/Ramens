@@ -34,7 +34,7 @@
         <td style="width: 20%;"><%= user.nickname %></td>
         <td>
           <% if user.profile? %>
-            <%= user.profile %>
+            <%= simple_format user.profile %>
           <% else %>
             No comment
           <% end %>

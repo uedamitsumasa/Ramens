@@ -20,11 +20,11 @@
       <% if @user.profile_image.attached? %>
         <div class="text-center mb-4">
           <h3>Profile Image</h3>
-          <%= image_tag @user.profile_image.variant(resize: '200x200'), class: "img-thumbnail" %>
+          <%= image_tag @user.profile_image.variant(resize: '200x200'), class: "my-class", size: '200x200' %>
         </div>
       <% else %>
         <div class="text-center mb-4">
-          <%= image_tag 'no_image.jpg', class: "img-thumbnail" %>
+          <%= image_tag 'no_image.jpg', class: "my-class", size: '200x200' %>
         </div>
       <% end %>
     </div>
@@ -36,7 +36,7 @@
           <h5 class="card-title">Comment</h5>
           <hr>
           <div class="card-text mb-4" style="height: 60px; overflow-y: auto;">
-            <%= @user.profile %>
+            <%= simple_format @user.profile %>
           </div>
         </div>
       </div>
