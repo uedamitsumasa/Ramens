@@ -1,7 +1,8 @@
 class Admins::ReviewsController < ApplicationController
   def index
     if params[:search].present?
-      @reviews = Review.where("content LIKE ?", "%#{params[:search]}%")
+      @user_ids = User.where("nickname LIKE ?", "%#{params[:search]}%").pluck(:id)
+      @reviews = Review.where("content LIKE ? OR user_id IN (?)", "%#{params[:search]}%", @user_ids)
       @replies = Reply.joins(:review).where("reviews.content LIKE ?", "%#{params[:search]}%")
     else
       @reviews = Review.all

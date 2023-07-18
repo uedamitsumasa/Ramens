@@ -29,7 +29,7 @@
               No comment
             <% end %>
           </td>
-          <td><%= link_to '詳細へ', publics_user_path(user), class: 'btn btn-secondary' %></td>
+          <td><%= link_to '詳細', publics_user_path(user), class: 'btn btn-success' %></td>
           <td>
             <% if current_user.following?(user) %>
               <%= link_to 'フォロー外す', publics_user_follows_path(user), method: :delete, class: 'btn btn-danger' %>

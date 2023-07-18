@@ -1,3 +1,4 @@
+<div class="container">
 <h1>ユーザー一覧</h1>
 
 <%= form_with url: publics_users_path, method: :get, class: 'boards__searchForm' do |form| %>
@@ -39,7 +40,7 @@
             No comment
           <% end %>
         </td>
-        <td><%= link_to '詳細', publics_user_path(user), class: 'btn btn-secondary' %></td>
+        <td><%= link_to '詳細', publics_user_path(user), class: 'btn btn-success' %></td>
         <td style="width: 15%;">
           <% if user.id != current_user.id %>
             <% if current_user.following?(user) %>
@@ -49,9 +50,10 @@
             <% end %>
           <% end %>
         </td>
-        <td style="width: 15%;">フォロー: <%= link_to user.followings.count, publics_user_followings_path(user), class: 'btn btn-outline-info' %></td>
-        <td style="width: 15%;">フォロワー: <%= link_to user.followers.count, publics_user_followers_path(user), class: 'btn btn-outline-info' %></td>
+        <td style="width: 15%;" nowrap>フォロー: <%= link_to user.followings.count, publics_user_followings_path(user), class: 'btn btn-outline-info' %></td>
+        <td style="width: 15%;" nowrap>フォロワー: <%= link_to user.followers.count, publics_user_followers_path(user), class: 'btn btn-outline-info' %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+</div>

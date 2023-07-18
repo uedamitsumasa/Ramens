@@ -14,6 +14,53 @@
 <p><strong>Created At:</strong> <%= @user.created_at %></p>
 <p><strong>Updated At:</strong> <%= @user.updated_at %></p>
 
+
+<div class="mt-4">
+    <h2>Reviews</h2>
+    <% if @user.reviews.any? %>
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Shop</th>
+              <th>Content</th>
+              <th>Rating</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @user.reviews.each do |review| %>
+              <tr>
+                <td><%= link_to review.shop.name, admins_shop_path(review.shop) %></td>
+                <td><%= link_to review.content, admins_review_path(review)  %></td>
+                <td>
+                  <div id="star_<%= review.id %>"></div>
+                  <script>
+                    $(document).on('turbolinks:load', function() {
+                      let elem = document.querySelector('#star_<%= review.id %>');
+                      if (elem == null) return;
+
+                      elem.innerHTML = "";
+                      let opt = {
+                        starOn: "<%= asset_path('star-on.png') %>",
+                        starOff: "<%= asset_path('star-off.png') %>",
+                        starHalf: "<%= asset_path('star-half.png') %>",
+                        score: "<%= review.star %>",
+                        readOnly: true,
+                      };
+                      raty(elem, opt);
+                    });
+                  </script>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% else %>
+      <p>まだレビューはありません。</p>
+    <% end %>
+  </div>
+
 <%= link_to 'Edit User', edit_admins_user_path(@user) %>
 
 

@@ -1,3 +1,11 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Ramens</title>
+  <script src="https://kit.fontawesome.com/56066c9124.js" crossorigin="anonymous"></script>
+</head>
+
 <div class="container">
   <div class="text-center">
     <h1>店舗詳細</h1>
@@ -50,7 +58,7 @@
     </div>
   </div>
 
-  <h2 class="mt-5">Reviews</h2>
+  <h2 class="mt-5"><i class="fa-regular fa-star-half-stroke"></i>Reviews<i class="fa-regular fa-star-half-stroke"></i></h2>
 
   <% @shop.reviews.each do |review| %>
     <div class="media border border-dark mt-4">
@@ -83,14 +91,14 @@
 
         <% if review.user == current_user %>
           <div class="review-actions">
-            <%= link_to 'レビューの編集', edit_publics_shop_review_path(review.shop_id, review.id), class: 'btn btn-primary btn-sm' %>
+            <%= link_to 'レビューの編集', edit_publics_shop_review_path(review.shop_id, review.id), class: 'btn btn-success btn-sm' %>
           </div>
         <% end %>
 
         <% if review.replies.any? %>
           <br />
           <div class='text-decoration-underline' style="font-size: 20px;">
-            Reply
+            <i class="fa-regular fa-comments"></i> Reply <i class="fa-regular fa-comments"></i>
           </div>
         <% end %>
 
@@ -106,7 +114,7 @@
               <p><%= reply.content %></p>
               <% if reply.user == current_user %>
                 <div class="review-actions">
-                  <%= link_to 'リプライの編集', edit_publics_reply_path(reply), class: 'btn btn-primary btn-sm' %>
+                  <%= link_to 'リプライの編集', edit_publics_reply_path(reply), class: 'btn btn-success btn-sm' %>
                 </div>
               <% end %>
             </div>
@@ -132,3 +140,5 @@
     <%= link_to 'この店舗のレビューを書く', new_publics_shop_review_path(shop_id: @shop.id), class: 'btn btn-primary' %>
   </div>
 </div>
+
+</html>

@@ -1,5 +1,5 @@
 <div class="container">
-  <h1 class="mb-4">ラーメン屋一覧</h1>
+  <h1 class="mb-4">ラーメンショップ一覧</h1>
 
   <%= form_with url: publics_shops_path, method: :get, class: 'boards__searchForm' do |f| %>
     <div class="input-group mb-3">
@@ -37,7 +37,7 @@
           <td><%= shop.name %></td>
           <td><%= shop.address %></td>
           <td>
-            <%= link_to '詳細リンク', publics_shop_path(shop), class: "btn btn-primary" %>
+            <%= link_to '詳細', publics_shop_path(shop), class: "btn btn-success" %>
           </td>
           <td>
             <% shop.genres.each do |genre| %>
