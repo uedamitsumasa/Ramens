@@ -1,16 +1,22 @@
+<div class="container">
+
 <h1>レビュー&リプライ</h1>
 
 <%= form_with(url: admins_reviews_path, method: :get) do |form| %>
-  <%= form.text_field :search, placeholder: "キーワードを入力" %>
-  <%= form.submit "検索" %>
+  <div class="input-group mb-3">
+    <%= form.text_field :search, placeholder: "キーワードを入力", class: "form-control" %>
+    <div class="input-group-append">
+      <%= form.submit "検索", class: "btn btn-primary" %>
+    </div>
+  </div>
 <% end %>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>User</th>
       <th>Content</th>
-      <th>Actions</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -19,7 +25,7 @@
         <td><%= review.user.nickname %></td>
         <td><%= review.content %></td>
         <td>
-          <%= link_to 'View Review', admins_review_path(review) %>
+          <%= link_to 'レビュー編集へ', admins_review_path(review), class: 'btn btn-primary' %>
         </td>
       </tr>
       <% review.replies.each do |reply| %>
@@ -27,10 +33,12 @@
           <td><%= reply.user.nickname %></td>
           <td><%= reply.content %></td>
           <td>
-            <%= link_to 'View Review', admins_review_path(reply.review) %>
+            <%= link_to 'リプライ編集へ', admins_review_path(reply.review), class: 'btn btn-success' %>
           </td>
         </tr>
       <% end %>
     <% end %>
   </tbody>
 </table>
+
+</div>

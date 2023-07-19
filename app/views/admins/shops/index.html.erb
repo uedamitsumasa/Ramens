@@ -1,11 +1,17 @@
-<h1>ラーメン屋一覧</h1>
+<div class="container">
 
-<%= form_with(url: admins_shops_path, method: :get) do |form| %>
-  <%= form.text_field :search, placeholder: "キーワードを入力" %>
-  <%= form.submit "検索" %>
+<h1>店舗一覧</h1>
+
+<%= form_with(url: admins_shops_path, method: :get, class: 'search-form') do |form| %>
+  <div class="input-group mb-3">
+    <%= form.text_field :search, placeholder: "キーワードを入力", class: "form-control" %>
+    <div class="input-group-append">
+      <%= form.submit "検索", class: "btn btn-primary" %>
+    </div>
+  </div>
 <% end %>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th></th>
@@ -18,20 +24,20 @@
       <tr>
         <td>
           <% if shop.shop_image.attached? %>
-            <%= image_tag shop.shop_image.variant(resize: '100x100') %>
+            <%= image_tag shop.shop_image.variant(resize: '100x100'), class: 'img-thumbnail' %>
           <% else %>
             No Image
           <% end %>
         </td>
         <td><%= shop.name %></td>
         <td>
-          <%= link_to '詳細リンク', admins_shop_path(shop) %>
-          <%= link_to '編集リンク', edit_admins_shop_path(shop) %>
+          <%= link_to '詳細リンク', admins_shop_path(shop), class: 'btn btn-info' %>
+          <%= link_to '編集リンク', edit_admins_shop_path(shop), class: 'btn btn-warning' %>
         </td>
       </tr>
     <% end %>
   </tbody>
-
-  <%= link_to '店舗の追加はこちらから', new_admins_shop_path %>
-
 </table>
+
+<%= link_to '店舗の追加はこちらから', new_admins_shop_path, class: 'btn btn-success' %>
+</div>

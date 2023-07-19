@@ -1,11 +1,17 @@
+<div class="container">
+
 <h1>ユーザー一覧</h1>
 
 <%= form_with(url: admins_users_path, method: :get, class: 'search-form') do |form| %>
-  <%= form.text_field :keyword, placeholder: 'キーワードを入力' %>
-  <%= form.submit '検索' %>
+  <div class="input-group mb-3">
+    <%= form.text_field :keyword, placeholder: 'キーワードを入力', class: 'form-control' %>
+    <div class="input-group-append">
+      <%= form.submit '検索', class: 'btn btn-primary' %>
+    </div>
+  </div>
 <% end %>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th></th>
@@ -18,7 +24,7 @@
       <tr>
         <td>
           <% if user.profile_image.attached? %>
-            <%= image_tag user.profile_image.variant(resize: '100x100') %>
+            <%= image_tag user.profile_image.variant(resize: '100x100'), class: 'img-thumbnail' %>
           <% else %>
             No Image
           <% end %>
@@ -27,9 +33,11 @@
           <%= user.nickname %>
         </td>
         <td>
-          <%= link_to 'Show', admins_user_path(user) %>
+          <%= link_to '詳細へ', admins_user_path(user), class: 'btn btn-success' %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+</div>

@@ -41,15 +41,20 @@
     <%= form.file_field :shop_image %>
   </div>
 
+  <div>
+    <%= form.label :noodle_images, "商品画像（shiftで複数選択可能）" %>
+    <%= form.file_field :noodle_images, multiple: true %>
+  </div>
+
   <div class="check_box">
     <label class="form-label">ジャンルタグ</label>
     <%= form.collection_check_boxes(:genre_ids, Genre.all, :id, :name) %>
   </div>
 
   <div>
-    <%= form.submit 'Update Shop' %>
+    <%= form.submit 'Update Shop', class: "btn btn-success" %>
   </div>
 <% end %>
 
-<%= button_to 'Delete Shop', admins_shop_path(@shop), method: :delete, data: { confirm: 'この店舗の情報が削除されてしまいますがよろしいですか?' } %>
-<%= link_to 'Back', admins_shop_path(@shop) %>
+<%= button_to 'Delete Shop', admins_shop_path(@shop), method: :delete, data: { confirm: 'この店舗の情報が削除されてしまいますがよろしいですか?' }, class: "btn btn-danger" %>
+<%= link_to 'Back', admins_shop_path(@shop), class: "btn btn-primary" %>

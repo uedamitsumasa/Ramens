@@ -123,7 +123,7 @@
 
         <br />
 
-        <% if review.user != current_user %>
+        <% if user_signed_in? && review.user != current_user %>
           <div class="reply-form">
             <%= form_with(model: review.replies.new, url: publics_replies_path(review), method: :post, class: 'mb-3') do |form| %>
               <%= form.hidden_field :review_id, value: review.id %>
@@ -136,9 +136,11 @@
     </div>
   <% end %>
 
+<% if user_signed_in? %>
   <div class="text-center mt-5">
     <%= link_to 'この店舗のレビューを書く', new_publics_shop_review_path(shop_id: @shop.id), class: 'btn btn-primary' %>
   </div>
+<% end %>
 </div>
 
 </html>
