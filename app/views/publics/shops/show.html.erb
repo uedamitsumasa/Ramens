@@ -65,7 +65,7 @@
       <% if review.user.profile_image.attached? %>
         <%= image_tag review.user.profile_image.variant(resize: '50x50'), class: 'mr-3 rounded-circle' %>
       <% else %>
-        <%= image_tag 'default_profile_image.png', size: '50x50', class: 'mr-3 rounded-circle' %>
+        <%= image_tag 'no_image.png', size: '50x50', class: 'mr-3 rounded-circle' %>
       <% end %>
       <div class="media-body">
         <h5 class="mt-0">⚫️<%= review.user.nickname %></h5>
@@ -107,7 +107,7 @@
             <% if reply.user.profile_image.attached? %>
               <%= image_tag reply.user.profile_image.variant(resize: '50x50'), class: 'mr-3 rounded-circle' %>
             <% else %>
-              <%= image_tag 'default_profile_image.png', size: '50x50', class: 'mr-3 rounded-circle' %>
+              <%= image_tag 'no_image.png', size: '50x50', class: 'mr-3 rounded-circle' %>
             <% end %>
             <div class="media-body">
               <h5 class="mt-0">⚫️<%= reply.user.nickname %></h5>
