@@ -1,18 +1,45 @@
-<h1>レビュー編集</h1>
+<div class="container">
+  <h1>レビュー編集</h1>
+  <h2>⚫️レビュー</h2>
+  <table class="table table-bordered">
+    <tbody>
+      <tr>
+        <td><strong>User:</strong></td>
+        <td><%= @review.user.nickname %></td>
+      </tr>
+      <tr>
+        <td><strong>Content:</strong></td>
+        <td><%= @review.content %></td>
+      </tr>
+      <tr>
+      <td colspan="2">
+       <%= link_to 'Review-Delete', admins_review_path(@review), method: :delete, data: { confirm: 'このレビューを削除してもよろしいでしょうか?' }, class: "btn btn-danger" %>
+      </td>
+      </tr>
+    </tbody>
+  </table>
 
-<p><strong>User:</strong> <%= @review.user.nickname %></p>
-<p><strong>Content:</strong> <%= @review.content %></p>
-<%= link_to 'Review-Delete', admins_review_path(@review), method: :delete, data: { confirm: 'このレビューを削除してもよろしいでしょうか?' }, class: "btn btn-danger" %>
 
+  <h2>⚫️リプライ</h2>
+  <table class="table table-bordered">
+    <tbody>
+      <% @replies.each do |reply| %>
+        <tr>
+          <td><strong>User:</strong></td>
+          <td><%= reply.user.nickname %></td>
+        </tr>
+        <tr>
+          <td><strong>Content:</strong></td>
+          <td><%= reply.content %></td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <%= link_to 'Reply-Delete', admins_reply_path(reply), method: :delete, data: { confirm: 'このリプライを削除してもよろしいでしょうか?' }, class: "btn btn-danger" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-<h2>リプライ編集</h2>
-
-<% @replies.each do |reply| %>
-  <div class="reply">
-    <p><strong>User:</strong> <%= reply.user.nickname %></p>
-    <p><strong>Content:</strong> <%= reply.content %></p>
-    <%= link_to 'Reply-Delete', admins_reply_path(reply), method: :delete, data: { confirm: 'このリプライを削除してもよろしいでしょうか?' }, class: "btn btn-danger" %>
-  </div>
-<% end %>
-
-<%= link_to 'Back', admins_reviews_path, class: "btn btn-primary" %>
+  <%= link_to 'Back', admins_reviews_path, class: "btn btn-primary" %>
+</div>

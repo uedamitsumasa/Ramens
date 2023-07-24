@@ -1,57 +1,57 @@
 <h1>ラーメンショップの追加</h1>
 
-<%= form_with(model: @shop, url: admins_shops_path, local: true, multipart: true) do |form| %>
-  <div>
+<%= form_with(model: @shop, url: admins_shops_path, local: true, multipart: true, class: "form") do |form| %>
+  <div class="form-group">
     <%= form.label :name, "店舗名" %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, class: "form-control" %>
   </div>
 
-  <div>
+  <div class="form-group">
     <%= form.label :explanation, "店舗説明" %>
-    <%= form.text_area :explanation %>
+    <%= form.text_area :explanation, class: "form-control", rows: 5 %>
   </div>
 
-  <div>
+  <div class="form-group">
     <%= form.label :post_code, "郵便番号" %>
-    <%= form.text_field :post_code %>
+    <%= form.text_field :post_code, class: "form-control" %>
   </div>
 
-  <div>
+  <div class="form-group">
     <%= form.label :address, "住所" %>
-    <%= form.text_field :address %>
+    <%= form.text_field :address, class: "form-control" %>
   </div>
 
-  <div>
+  <div class="form-group">
     <%= form.label :phone_number, "電話番号" %>
-    <%= form.text_field :phone_number %>
+    <%= form.text_field :phone_number, class: "form-control" %>
   </div>
 
-  <div>
+  <div class="form-group">
     <%= form.label :open_time, "開店時間" %>
-    <%= form.time_select :open_time %>
+    <%= form.time_select :open_time, class: "form-control" %>
   </div>
 
-  <div>
+  <div class="form-group">
     <%= form.label :close_time, "閉店時間" %>
-    <%= form.time_select :close_time %>
+    <%= form.time_select :close_time, class: "form-control" %>
   </div>
 
-  <div>
+  <div class="form-group">
     <%= form.label :shop_image, "店舗画像" %>
-    <%= form.file_field :shop_image %>
+    <%= form.file_field :shop_image, class: "form-control-file" %>
   </div>
 
-  <div>
+  <div class="form-group">
     <%= form.label :noodle_images, "商品画像（shiftで複数選択可能）" %>
-    <%= form.file_field :noodle_images, multiple: true %>
+    <%= form.file_field :noodle_images, class: "form-control-file", multiple: true %>
   </div>
 
-  <div class="check_box">
+  <div class="form-group">
     <label class="form-label">ジャンルタグ</label>
     <%= form.collection_check_boxes(:genre_ids, Genre.all, :id, :name) %>
   </div>
 
-  <div>
+  <div class="form-group">
     <%= form.submit "Add Shop", class: "btn btn-success" %>
   </div>
 <% end %>

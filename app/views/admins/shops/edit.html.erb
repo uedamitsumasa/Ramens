@@ -1,60 +1,62 @@
-<h1>店舗編集</h1>
+<div class="container">
+  <h1>店舗編集</h1>
 
-<%= form_with(model: @shop, url: admins_shop_path(@shop), method: :patch) do |form| %>
-  <div>
-    <%= form.label :name, "店舗名" %>
-    <%= form.text_field :name %>
-  </div>
+  <%= form_with(model: @shop, url: admins_shop_path(@shop), method: :patch) do |form| %>
+    <div class="form-group">
+      <%= form.label :name, "店舗名" %>
+      <%= form.text_field :name, class: "form-control" %>
+    </div>
 
-  <div>
-    <%= form.label :explanation, "店舗説明" %>
-    <%= form.text_area :explanation %>
-  </div>
+    <div class="form-group">
+      <%= form.label :explanation, "店舗説明" %>
+      <%= form.text_area :explanation, class: "form-control", rows: 5 %>
+    </div>
 
-  <div>
-    <%= form.label :post_code, "郵便番号" %>
-    <%= form.text_field :post_code %>
-  </div>
+    <div class="form-group">
+      <%= form.label :post_code, "郵便番号" %>
+      <%= form.text_field :post_code, class: "form-control" %>
+    </div>
 
-  <div>
-    <%= form.label :address, "住所" %>
-    <%= form.text_field :address %>
-  </div>
+    <div class="form-group">
+      <%= form.label :address, "住所" %>
+      <%= form.text_field :address, class: "form-control" %>
+    </div>
 
-  <div>
-    <%= form.label :phone_number, "電話番号" %>
-    <%= form.text_field :phone_number %>
-  </div>
+    <div class="form-group">
+      <%= form.label :phone_number, "電話番号" %>
+      <%= form.text_field :phone_number, class: "form-control" %>
+    </div>
 
-  <div>
-    <%= form.label :open_time, "開店時間" %>
-    <%= form.time_select :open_time %>
-  </div>
+    <div class="form-group">
+      <%= form.label :open_time, "開店時間" %>
+      <%= form.time_select :open_time, class: "form-control" %>
+    </div>
 
-  <div>
-    <%= form.label :close_time, "閉店時間" %>
-    <%= form.time_select :close_time %>
-  </div>
+    <div class="form-group">
+      <%= form.label :close_time, "閉店時間" %>
+      <%= form.time_select :close_time, class: "form-control" %>
+    </div>
 
-  <div>
-    <%= form.label :shop_image, "店舗画像" %>
-    <%= form.file_field :shop_image %>
-  </div>
+    <div class="form-group">
+      <%= form.label :shop_image, "店舗画像" %>
+      <%= form.file_field :shop_image, class: "form-control-file" %>
+    </div>
 
-  <div>
-    <%= form.label :noodle_images, "商品画像（shiftで複数選択可能）" %>
-    <%= form.file_field :noodle_images, multiple: true %>
-  </div>
+    <div class="form-group">
+      <%= form.label :noodle_images, "商品画像（shiftで複数選択可能）" %>
+      <%= form.file_field :noodle_images, multiple: true, class: "form-control-file" %>
+    </div>
 
-  <div class="check_box">
-    <label class="form-label">ジャンルタグ</label>
-    <%= form.collection_check_boxes(:genre_ids, Genre.all, :id, :name) %>
-  </div>
+    <div class="check_box">
+      <label class="form-label">ジャンルタグ</label>
+      <%= form.collection_check_boxes(:genre_ids, Genre.all, :id, :name) %>
+    </div>
 
-  <div>
-    <%= form.submit 'Update Shop', class: "btn btn-success" %>
-  </div>
-<% end %>
+    <div class="form-group">
+      <%= form.submit 'Update Shop', class: "btn btn-success" %>
+    </div>
+  <% end %>
 
-<%= button_to 'Delete Shop', admins_shop_path(@shop), method: :delete, data: { confirm: 'この店舗の情報が削除されてしまいますがよろしいですか?' }, class: "btn btn-danger" %>
-<%= link_to 'Back', admins_shop_path(@shop), class: "btn btn-primary" %>
+  <%= button_to 'Delete Shop', admins_shop_path(@shop), method: :delete, data: { confirm: 'この店舗の情報が削除されてしまいますがよろしいですか?' }, class: "btn btn-danger" %>
+  <%= link_to 'Back', admins_shop_path(@shop), class: "btn btn-primary" %>
+</div>

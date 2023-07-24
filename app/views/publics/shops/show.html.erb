@@ -29,7 +29,7 @@
     <h2 class="display-4">----Shop Information----</h2>
     <h1 class="display-3">店舗名：<%= @shop.name %></h1>
 
-    <p class="lead">店舗説明：<%= @shop.explanation %></p>
+    <p class="lead">店舗説明：<%= simple_format @shop.explanation %></p>
 
     <p class="lead">ジャンルタグ:
       <% @shop.genres.each do |genre| %>
