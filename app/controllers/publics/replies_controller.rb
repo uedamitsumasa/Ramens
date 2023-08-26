@@ -14,16 +14,25 @@ class Publics::RepliesController < ApplicationController
 
   def destroy
     @reply = Reply.find(params[:id])
+    unless @reply.user.id == current_user.id
+      redirect_to publics_shop_path
+    end
     @reply.destroy
     redirect_to root_path, notice: 'Reply was successfully deleted.'
   end
 
   def edit
     @reply = Reply.find(params[:id])
+    unless @reply.user.id == current_user.id
+      redirect_to publics_shop_path
+    end
   end
 
   def update
     @reply = Reply.find(params[:id])
+    unless @reply.user.id == current_user.id
+      redirect_to publics_shop_path
+    end
     @reply.update(reply_params)
     redirect_to root_path, notice: 'Reply was successfully update.'
   end

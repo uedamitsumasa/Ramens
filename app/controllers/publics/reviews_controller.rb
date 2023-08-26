@@ -18,11 +18,17 @@ class Publics::ReviewsController < ApplicationController
 
   def edit
     @review = Review.find(params[:id])
+    unless @review.user.id == current_user.id
+      redirect_to publics_shop_path
+    end
     @shop = Shop.find(params[:shop_id])
   end
 
   def update
     @review = Review.find(params[:id])
+    unless @review.user.id == current_user.id
+      redirect_to publics_shop_path
+    end
     if @review.update(review_params)
       redirect_to publics_shop_path(@review.shop), notice: '更新しました。'
     else
@@ -32,6 +38,9 @@ class Publics::ReviewsController < ApplicationController
 
   def destroy
     @review = Review.find(params[:id])
+    unless @review.user.id == current_user.id
+      redirect_to publics_shop_path
+    end
     @review.destroy
     redirect_to publics_shop_path(@review.shop_id), notice: '削除しました。'
   end
