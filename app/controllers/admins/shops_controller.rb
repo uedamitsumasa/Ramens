@@ -1,5 +1,6 @@
 class Admins::ShopsController < ApplicationController
   before_action :set_shop, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_admin!
 
   def new
     @shop = Shop.new

@@ -1,4 +1,6 @@
 class Admins::ReviewsController < ApplicationController
+  before_action :authenticate_admin!
+
   def index
     if params[:search].present?
       @user_ids = User.where("nickname LIKE ?", "%#{params[:search]}%").pluck(:id)
