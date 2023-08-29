@@ -18,6 +18,7 @@ before_action :check_owner, only: [:edit, :update, :destroy]
     if @user.update!(user_params)
       redirect_to publics_user_path(@user), notice: 'User was successfully updated.'
     else
+      flash.now[:alert] = '投稿に失敗しました'
       render :edit
     end
   end
@@ -26,7 +27,7 @@ before_action :check_owner, only: [:edit, :update, :destroy]
     @user.destroy
     redirect_to root_path, notice: 'User was successfully deleted.'
   end
-  
+
   def followings
     @users = @user.followings
   end

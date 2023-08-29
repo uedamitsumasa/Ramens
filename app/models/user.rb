@@ -11,6 +11,12 @@ class User < ApplicationRecord
   has_many :followings, through: :follows, source: :follower
   has_many :followers, through: :reverse_of_follows, source: :follow
 
+  VALID_POSTAL_CODE_REGEX = /\A\d{3}[-]?\d{4}\z/ #正規表現を//で/正規表現/とサンドすることを忘れないよう
+  validates :post_code, presence: true, format: { with: VALID_POSTAL_CODE_REGEX }
+  
+  VALID_PHONE_REGEX = /\A\d{10}$|^\d{11}\z/
+  validates :phone_number, presence: true, format: { with: VALID_PHONE_REGEX }
+
     # フォローしたときの処理
     # user_id: フォローされる人のid
   def follow(user_id)

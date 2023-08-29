@@ -19,6 +19,7 @@ class Admins::UsersController < ApplicationController
     if @user.update(user_params)
       redirect_to admins_user_path(@user), notice: 'User was successfully updated.'
     else
+      flash.now[:alert] = '投稿に失敗しました'
       render :edit
     end
   end

@@ -1,19 +1,21 @@
 <h1>ユーザー詳細</h1>
+<%= notice %>
 
-<p><strong>ID:</strong> <%= @user.id %></p>
-<p><strong>Last Name:</strong> <%= @user.last_name %></p>
-<p><strong>First Name:</strong> <%= @user.first_name %></p>
-<p><strong>Last Name (Katakana):</strong> <%= @user.last_name_katakana %></p>
-<p><strong>First Name (Katakana):</strong> <%= @user.first_name_katakana %></p>
-<p><strong>Nickname:</strong> <%= @user.nickname %></p>
-<p><strong>Post Code:</strong> <%= @user.post_code %></p>
-<p><strong>Address:</strong> <%= @user.address %></p>
-<p><strong>Phone Number:</strong> <%= @user.phone_number %></p>
-<p><strong>Profile:</strong> <%= @user.profile %></p>
-<p><strong>Email:</strong> <%= @user.email %></p>
-<p><strong>Created At:</strong> <%= @user.created_at %></p>
-<p><strong>Updated At:</strong> <%= @user.updated_at %></p>
-
+<ul class="user-info">
+    <li class="info-item">ID: <%= @user.id %></li>
+    <li class="info-item">性: <%= @user.last_name %></li>
+    <li class="info-item">名: <%= @user.first_name %></li>
+    <li class="info-item">セイ: <%= @user.last_name_katakana %></li>
+    <li class="info-item">メイ: <%= @user.first_name_katakana %></li>
+    <li class="info-item">ニックネーム: <%= @user.nickname %></li>
+    <li class="info-item">郵便番号: <%= @user.post_code %></li>
+    <li class="info-item">住所: <%= @user.address %></li>
+    <li class="info-item">電話番号: <%= @user.phone_number %></li>
+    <li class="info-item">Profile: <%= @user.profile %></li>
+    <li class="info-item">Email: <%= @user.email %></li>
+    <li class="info-item">Created At: <%= @user.created_at %></li>
+    <li class="info-item">Updated At: <%= @user.updated_at %></li>
+  </ul>
 
 <div class="mt-4">
   <h2>Reviews</h2>

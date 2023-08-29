@@ -12,6 +12,7 @@ class Admins::ShopsController < ApplicationController
     if @shop.save
       redirect_to admins_shops_path, notice: "Shop added successfully!"
     else
+      flash.now[:alert] = '投稿に失敗しました'
       render :new
     end
   end
@@ -35,6 +36,7 @@ class Admins::ShopsController < ApplicationController
     if @shop.update(shop_params)
       redirect_to admins_shop_path(@shop), notice: 'Shop was successfully updated.'
     else
+      flash.now[:alert] = '投稿に失敗しました'
       render :edit
     end
   end

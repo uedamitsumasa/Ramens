@@ -1,5 +1,6 @@
 <div class="container">
   <h1>ユーザー情報編集</h1>
+  <%= alert %>
 
   <%= form_with(model: @user, url: publics_user_path(@user), method: :patch) do |form| %>
     <div class="form-group">

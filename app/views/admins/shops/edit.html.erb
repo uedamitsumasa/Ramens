@@ -1,5 +1,6 @@
 <div class="container">
   <h1>店舗編集</h1>
+  <%= alert %>
 
   <%= form_with(model: @shop, url: admins_shop_path(@shop), method: :patch) do |form| %>
     <div class="form-group">
