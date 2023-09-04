@@ -1,7 +1,5 @@
 <h1>店舗詳細</h1>
 
-<%= link_to '編集リンク', edit_admins_shop_path(@shop), class: "btn btn-success" %>
-
 <div>
   <% if @shop.shop_image.attached? %>
     <%= image_tag @shop.shop_image.variant(resize: '500x500'), class: "img-thumbnail" %>
@@ -38,4 +36,5 @@
   </ul>
 </div>
 
+<%= link_to 'Edit User', edit_admins_shop_path(@shop), class: "btn btn-success" %>
 <%= link_to 'Back', admins_shops_path, class: "btn btn-primary" %>
