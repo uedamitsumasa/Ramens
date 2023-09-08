@@ -54,10 +54,10 @@
     </div>
 
     <div class="form-group">
-      <%= form.submit 'Update Shop', class: "btn btn-success" %>
+      <%= form.submit '更新する', class: "btn btn-success" %>
     </div>
   <% end %>
 
-  <%= button_to 'Delete Shop', admins_shop_path(@shop), method: :delete, data: { confirm: 'この店舗の情報が削除されてしまいますがよろしいですか?' }, class: "btn btn-danger" %>
-  <%= link_to 'Back', admins_shop_path(@shop), class: "btn btn-primary" %>
+  <%= button_to '削除する', admins_shop_path(@shop), method: :delete, data: { confirm: 'この店舗の情報が削除されてしまいますがよろしいですか?' }, class: "btn btn-danger" %>
+  <%= link_to '戻る', admins_shop_path(@shop), class: "btn btn-primary" %>
 </div>
